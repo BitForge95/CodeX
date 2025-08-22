@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1>{{username}}</h1>
+
+{% for item in blogs %}
+
+<img src="{{item.image}}"/>
+<h1>{{item.title}}</h1>
+<p>{{item.description}}</p>
+<p>{{item.created_at}}</p>
+
+{% comment %} <a href="{% url 'read_detailed_blog' item.pk %}" class="btn btn-primary">Read More</a> {% endcomment %}
+
+
+{% endfor %}
+
+{% endblock %}

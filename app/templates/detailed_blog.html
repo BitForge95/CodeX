@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1>{{ detailed_blog.title }}</h1>
+
+<p>Published on: {{ detailed_blog.created_at|date:"F j, Y, g:i a" }}</p>
+
+{% if detailed_blog.image %}
+  <img src="{{ detailed_blog.image.url }}" alt="{{ detailed_blog.title }}" style="max-width: 100%; height: auto;">
+{% endif %}
+
+<div>
+  <p>{{ detailed_blog.description }}</p>
+</div>
+
+<a href="{% url 'read_blogs' %}">← Back to all blogs</a>
+
+{% endblock %}

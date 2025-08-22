@@ -1,0 +1,45 @@
+# Python bytecode files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django migrations
+*/migrations/*.py
+*/migrations/*.pyc
+!*/migrations/__init__.py
+
+# Environment variables and virtual environments
+.env
+venv/
+env/
+ENV/
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.mo
+*.db
+
+# Media files (user uploads)
+media/
+
+# Static files (collected static)
+staticfiles/
+
+# IDE/editor specific
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS files
+.DS_Store
+
+# PyCharm
+*.iml
