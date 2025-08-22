@@ -10,7 +10,7 @@ class RegisterUser(models.Model):
         return self.username
 
 class Blog(models.Model):
-    title = models.CharField(max_length=50, primary_key=True)
+    title = models.CharField(max_length=50, primary_key=True, unique=True)
     description = models.TextField()
     image = models.ImageField(upload_to='images/')
     created_at = models.DateTimeField(auto_now_add=True)

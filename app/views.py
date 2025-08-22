@@ -54,7 +54,7 @@ def read_all_blogs_view(request):   #Read all the Blogs in short without full de
         username = request.user.username
         context = {'username': username}
     else :
-        username = 'Guest'    
+        username = 'Guest'
     get_all_blogs = Blog.objects.all()
     return render(
         request,

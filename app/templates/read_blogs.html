@@ -11,7 +11,7 @@
 <p>{{item.description}}</p>
 <p>{{item.created_at}}</p>
 
-{% comment %} <a href="{% url 'read_detailed_blog' item.pk %}" class="btn btn-primary">Read More</a> {% endcomment %}
+<a href="{% url 'detailed_blog' item.title %}" class="btn btn-primary">Read More</a>
 
 
 {% endfor %}

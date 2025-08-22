@@ -2,18 +2,95 @@
 
 {% block content %}
 
-<h1>{{ detailed_blog.title }}</h1>
+<style>
+  body {
+    background-color: #fdfcfb;
+    font-family: 'Georgia', serif;
+    color: #333;
+    line-height: 1.8;
+  }
 
-<p>Published on: {{ detailed_blog.created_at|date:"F j, Y, g:i a" }}</p>
+  .blog-wrapper {
+    max-width: 750px;
+    margin: 60px auto;
+    padding: 40px 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  }
 
-{% if detailed_blog.image %}
-  <img src="{{ detailed_blog.image.url }}" alt="{{ detailed_blog.title }}" style="max-width: 100%; height: auto;">
-{% endif %}
+  .blog-title {
+    font-size: 3em;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+  }
 
-<div>
-  <p>{{ detailed_blog.description }}</p>
+  .blog-meta {
+    font-size: 0.95em;
+    color: #888;
+    margin-bottom: 25px;
+  }
+
+  .blog-image {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin: 30px 0;
+    object-fit: cover;
+  }
+
+  .blog-description {
+    font-size: 1.2em;
+    color: #444;
+    margin-bottom: 40px;
+    white-space: pre-line;
+  }
+
+  .back-link {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1em;
+    color: #3b82f6;
+    border: 1px solid transparent;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+
+  .back-link:hover {
+    background-color: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+  }
+
+  /* Optional: Add a quote style for blockquote */
+  .blog-description blockquote {
+    margin: 20px 0;
+    padding: 15px 20px;
+    background-color: #f9f9f9;
+    border-left: 4px solid #ccc;
+    font-style: italic;
+    color: #666;
+  }
+</style>
+
+<div class="blog-wrapper">
+  <h1 class="blog-title">{{ detailed_blog.title }}</h1>
+
+  <p class="blog-meta">Published on {{ detailed_blog.created_at|date:"F j, Y, g:i a" }}</p>
+
+  {% if detailed_blog.image %}
+    <img class="blog-image" src="{{ detailed_blog.image.url }}" alt="{{ detailed_blog.title }}">
+  {% endif %}
+
+  <div class="blog-description">
+    {{ detailed_blog.description|linebreaks }}
+  </div>
+
+  <a class="back-link" href="{% url 'read_all_blogs' %}">← Back to all blogs</a>
 </div>
-
-<a href="{% url 'read_blogs' %}">← Back to all blogs</a>
 
 {% endblock %}
