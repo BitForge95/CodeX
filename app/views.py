@@ -63,16 +63,16 @@ def read_all_blogs_view(request):   #Read all the Blogs in short without full de
 
 
 def read_detailed_blog_view(request, title):  #Read the whole specific blog the user is intrested in 
+    detailed_blog = get_object_or_404(Blog,title=title)
     if request.user.is_authenticated:
         username = request.user.username
-        context = {'username' : username}
     else:
-        username = 'Guest'    
-    detailed_blog = get_object_or_404(Blog,title=title)
+        username = 'Guest'
+    blog_author = detailed_blog.author.username if detailed_blog.author else "Guest"  
     return render(
         request,
         'detailed_blog.html',
-        {'detailed_blog':detailed_blog,'username': username}
+        {'detailed_blog':detailed_blog,'username': username,'blog_author': blog_author}
     )
 
 @login_required  
@@ -80,8 +80,10 @@ def create_blog(request):
     if request.method == 'POST':
         form = BlogForm(request.POST, request.FILES)
         if form.is_valid():
+            blog = form.save(commit=False)  
+            blog.author = request.user
             blog = form.save()
-            return redirect('read_blogs', pk=blog.pk)
+            return redirect('read_blogs')  #, pk=blog.pk
         
     else:
         form = BlogForm()

@@ -2,18 +2,111 @@
 
 {% block content %}
 
-<h1>{{username}}</h1>
+<style>
+  body {
+    background-color: #f5f7fa;
+    font-family: 'Georgia', serif;
+    color: #333;
+  }
 
-{% for item in blogs %}
+  .blog-list-container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+  }
 
-<img src="{{item.image}}"/>
-<h1>{{item.title}}</h1>
-<p>{{item.description}}</p>
-<p>{{item.created_at}}</p>
+  .blog-list-header {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: #222;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+  }
 
-<a href="{% url 'detailed_blog' item.title %}" class="btn btn-primary">Read More</a>
+  .blog-card {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+  }
 
+  .blog-card:hover {
+    transform: translateY(-5px);
+  }
 
-{% endfor %}
+  .blog-image {
+    width: 250px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
+  .blog-content {
+    flex: 1;
+  }
+
+  .blog-title {
+    font-size: 1.8em;
+    margin: 0 0 10px;
+    color: #2a2a2a;
+  }
+
+  .blog-description {
+    font-size: 1.05em;
+    color: #555;
+    margin-bottom: 15px;
+  }
+
+  .blog-date {
+    font-size: 0.9em;
+    color: #888;
+    margin-bottom: 10px;
+  }
+
+  .read-more-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3b82f6;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+
+  .read-more-btn:hover {
+    background-color: #2563eb;
+  }
+</style>
+
+<div class="blog-list-container">
+
+  <a href="{% url 'create_blog' %}" class="read-more-btn">Create a Blog</a>
+
+  {% for item in blogs %}
+    <div class="blog-card">
+      {% if item.image %}
+        <img src="{{ item.image.url }}" alt="{{ item.title }}" class="blog-image">
+      {% endif %}
+      <div class="blog-content">
+        <h2 class="blog-title">{{ item.title }}</h2>
+        <p class="blog-date">Published on: {{ item.created_at|date:"F j, Y" }}</p>
+        <p class="blog-description">{{ item.description|truncatechars:200 }}</p>
+        <a href="{% url 'detailed_blog' item.title %}" class="read-more-btn">Read More →</a>
+      </div>
+    </div>
+  {% empty %}
+    <p>No blogs found.</p>
+  {% endfor %}
+
+</div>
 
 {% endblock %}
