@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<style>
+.blog-image {
+    width: 250px;
+    height: 180px;
+}    
+
+
+</style>
+
+
+<h1>{{username}}</h1>
+<p>registerd with email: {{user.email}}</p>
+
+{% for item in profile_blogs %}
+<div class="blog-card">
+      {% if item.image %}
+        <img src="{{ item.image.url }}" alt="{{ item.title }}" class="blog-image">
+      {% endif %}
+      <div class="blog-content">
+        <h2 class="blog-title">{{ item.title }}</h2>
+        <p class="blog-date">Published on: {{ item.created_at|date:"F j, Y" }}</p>
+        <p class="blog-description">{{ item.description|truncatechars:200 }}</p>
+        <a href="{% url 'detailed_blog' item.title %}" class="read-more-btn">Read More →</a>
+      </div>
+    </div>
+  {% empty %}
+    <p>No blogs found.</p>
+
+{% endfor %}
+
+{% endblock %}

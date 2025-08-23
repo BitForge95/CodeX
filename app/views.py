@@ -8,6 +8,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 
+def profile_view(request, username):
+    user = get_object_or_404(User, username=username)
+    profile_blogs = Blog.objects.filter(author=user)
+    return render(request,'profile.html', {'username' : username, 'profile_blogs': profile_blogs})
 
 @login_required
 def Home(request):
@@ -72,7 +76,7 @@ def read_detailed_blog_view(request, title):  #Read the whole specific blog the 
     return render(
         request,
         'detailed_blog.html',
-        {'detailed_blog':detailed_blog,'username': username,'blog_author': blog_author}
+        {'detailed_blog':detailed_blog,'username': blog_author}
     )
 
 @login_required  
@@ -92,7 +96,7 @@ def create_blog(request):
         'create_blog.html',
         {'form': form}
     )       
-
+    
 
 def edit_blog_view(request,pk):  #Edit Blogs by providing them pk 
     blog = get_object_or_404(Blog, pk=pk)
@@ -108,4 +112,5 @@ def edit_blog_view(request,pk):  #Edit Blogs by providing them pk
             'edit_blog.html', 
             {'form': form, 'blog': blog}
         )
+
 

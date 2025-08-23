@@ -79,7 +79,8 @@
 
 <div class="blog-wrapper">
   <h1 class="blog-title">{{ detailed_blog.title }}</h1>
-  <h2>{{blog_author}}</h2> 
+  <a href="{% url "profile" username %}">{{username}}</a>
+  {% comment %} <h2>{{blog_author}}</h2> {% endcomment %}
   <p class="blog-meta">Published on {{ detailed_blog.created_at|date:"F j, Y, g:i a" }}</p>
 
   {% if detailed_blog.image %}
