@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 
+
 def profile_view(request, username):
     user = get_object_or_404(User, username=username)
     profile_blogs = Blog.objects.filter(author=user)
@@ -113,4 +114,6 @@ def edit_blog_view(request,pk):  #Edit Blogs by providing them pk
             {'form': form, 'blog': blog}
         )
 
+def error_404_view(request, exception):
+    return render(request, '404.html')
 
