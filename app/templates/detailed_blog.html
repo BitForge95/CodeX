@@ -76,95 +76,168 @@
   }
 
   .author-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  border: 1px solid #dee2e6;
-  border-radius: 20px;
-  color: #495057;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
-  position: relative;
-  overflow: hidden;
-}
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    color: #495057;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
 
-.author-link::before {
-  content: '👤';
-  font-size: 0.8rem;
-}
+  .author-link::before {
+    content: '👤';
+    font-size: 0.8rem;
+  }
 
-.author-link:hover {
-  background: linear-gradient(135deg, #007bff, #0056b3);
-  border-color: #0056b3;
-  color: white;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
-}
+  .author-link:hover {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border-color: #0056b3;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+  }
 
-.author-link:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
-}
+  .author-link:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+  }
 
-/* Alternative minimal style */
-.author-link-minimal {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: 500;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  position: relative;
-}
+  textarea {
+    width: 100%;
+    min-height: 80px;
+    font-family: 'Georgia', serif;
+    font-size: 1em;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    resize: vertical;
+    box-sizing: border-box;
+    background-color: #fafafa;
+    color: #333;
+    transition: all 0.3s ease;
+  }
 
-.author-link-minimal::before {
-  content: '@';
-  margin-right: 4px;
-  opacity: 0.7;
-}
+  textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
 
-.author-link-minimal:hover {
-  background-color: rgba(0, 123, 255, 0.1);
-  color: #0056b3;
-}
+  .comments-section {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 2px solid #eee;
+  }
 
-/* Professional badge style */
-.author-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  background: #ffffff;
-  border: 1px solid #e1e8ed;
-  border-radius: 6px;
-  color: #24292e;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.85rem;
-  transition: all 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
+  .comments-title {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 30px;
+  }
 
-.author-badge::before {
-  content: '✍️';
-  font-size: 0.75rem;
-}
+  .comment-form {
+    margin-bottom: 40px;
+    padding: 25px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #eee;
+  }
 
-.author-badge:hover {
-  border-color: #0969da;
-  color: #0969da;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  transform: translateY(-1px);
-}
+  .comment-form h3 {
+    font-size: 1.3em;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .comment-form button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+  }
+
+  .comment-form button:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.2);
+  }
+
+  .comment-form button:active {
+    transform: translateY(0);
+  }
+
+  .comment {
+    background-color: #fafafa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-left: 4px solid #3b82f6;
+    transition: all 0.3s ease;
+  }
+
+  .comment:hover {
+    background-color: #f5f5f5;
+    transform: translateX(2px);
+  }
+
+  .comment-author {
+    font-weight: 600;
+    color: #222;
+    font-size: 1.05em;
+    margin-bottom: 8px;
+  }
+
+  .comment-body {
+    color: #444;
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .comment-meta {
+    font-size: 0.85em;
+    color: #888;
+    font-style: italic;
+  }
+
+  .no-comments {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px dashed #ddd;
+  }
+
+  .section-divider {
+    margin: 40px 0;
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #ddd, transparent);
+  }
 </style>
 
 <div class="blog-wrapper">
   <h1 class="blog-title">{{ detailed_blog.title }}</h1>
-  <a class="author-link" href="{% url "profile" username %}">{{username}}</a>
+  <a class="author-link" href="{% url 'profile' username %}">{{ username }}</a>
   <p class="blog-meta">Published on {{ detailed_blog.created_at|date:"F j, Y, g:i a" }}</p>
 
   {% if detailed_blog.image %}
@@ -176,6 +249,32 @@
   </div>
 
   <a class="back-link" href="{% url 'read_all_blogs' %}">← Back to all blogs</a>
+
+  <div class="comments-section">
+    <div class="comment-form">
+      <h3>Leave a Comment</h3>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Post Comment</button>
+      </form>
+    </div>
+
+    <hr class="section-divider">
+
+    <h2 class="comments-title">Comments</h2>
+    {% for comment in comments %}
+      <div class="comment">
+        <div class="comment-author">{{ comment.author.username }}</div>
+        <div class="comment-body">{{ comment.body }}</div>
+        <div class="comment-meta">Posted on {{ comment.created_on|date:"F j, Y, g:i a" }}</div>
+      </div>
+    {% empty %}
+      <div class="no-comments">
+        <p>No comments yet. Be the first to comment!</p>
+      </div>
+    {% endfor %}
+  </div>
 </div>
 
 {% endblock %}

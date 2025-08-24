@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from .models import Blog,RegisterUser
-from .forms import RegisterForm, BlogForm
+from .forms import RegisterForm, BlogForm, Comment_form
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
@@ -88,17 +88,33 @@ def read_all_blogs_view(request):   #Read all the Blogs in short without full de
         {'blogs': get_all_blogs, 'username': username})
 
 
-def read_detailed_blog_view(request, title):  #Read the whole specific blog the user is intrested in 
-    detailed_blog = get_object_or_404(Blog,title=title)
-    if request.user.is_authenticated:
-        username = request.user.username
+def read_detailed_blog_view(request, title):    #Updated Detailed_view by implementing Comment feature which is for now is being accessed from Title of the Blog as it is unique
+    detailed_blog = get_object_or_404(Blog, title=title)
+    comments = detailed_blog.comment.all().order_by('-created_on')
+
+    if request.method == 'POST':
+        if request.user.is_authenticated:   
+            form = Comment_form(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.post = detailed_blog
+                comment.author = request.user
+                comment.save()
+                return redirect('detailed_blog', title=title)
+        else:
+            form = Comment_form() 
     else:
-        username = 'Guest'
-    blog_author = detailed_blog.author.username if detailed_blog.author else "Guest"  
+        form = Comment_form()
+
     return render(
         request,
         'detailed_blog.html',
-        {'detailed_blog':detailed_blog,'username': blog_author}
+        {
+            'detailed_blog': detailed_blog,
+            'comments': comments,
+            'form': form,
+            'username': request.user.username if request.user.is_authenticated else 'Guest'
+        }
     )
 
 @login_required  
@@ -109,7 +125,7 @@ def create_blog(request):
             blog = form.save(commit=False)  
             blog.author = request.user
             blog = form.save()
-            return redirect('read_blogs')  #, pk=blog.pk
+            return redirect('read_all_blogs')  #, pk=blog.pk
         
     else:
         form = BlogForm()
@@ -138,3 +154,28 @@ def edit_blog_view(request,pk):  #Edit Blogs by providing them pk
 def error_404_view(request, exception):
     return render(request, '404.html')
 
+def comment_view(request, title):
+    detailed_blog = get_object_or_404(Blog, title=title)
+    comments = detailed_blog.comment.all().order_by('-created_on')
+
+    if request.method == 'POST':
+        form = Comment_form(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = detailed_blog
+            comment.author = request.user
+            comment.save()
+            return redirect('read_detailed_blog', title=title)
+    else:
+        form = Comment_form()
+
+    return render(
+        request,
+        'detailed_blog.html',
+        {
+            'detailed_blog': detailed_blog,
+            'comments': comments,
+            'form': form,
+            'username': request.user.username if request.user.is_authenticated else 'Guest'
+        }
+    )

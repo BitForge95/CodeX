@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-from .models import Blog
+from .models import Blog, Comment
 from django import forms
 
 User = get_user_model()
@@ -23,3 +23,11 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ("username", "email", "password1", "password2")
+
+class Comment_form(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["body"]
+        widgets = {
+            "body": forms.Textarea(attrs={"rows": 4, "cols": 50, "placeholder": "Write your comment here..."})
+        }
