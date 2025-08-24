@@ -1,96 +1,265 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
 <style>
-  body {
-    background-color: #f5f7fa;
-    font-family: 'Georgia', serif;
-    color: #333;
-  }
+body {
+  background-color: #f5f7fa;
+  font-family: 'Georgia', serif;
+  color: #333;
+}
 
-  .blog-list-container {
-    max-width: 1000px;
-    margin: 50px auto;
-    padding: 20px;
-  }
+.blog-list-container {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 20px;
+}
 
-  .blog-list-header {
-    font-size: 2.5em;
-    font-weight: bold;
-    margin-bottom: 40px;
-    color: #222;
-    text-align: center;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 10px;
-  }
+.blog-list-header {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 40px;
+  color: #222;
+  text-align: center;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+}
 
+.blog-card {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+}
+
+.blog-image {
+  width: 250px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.blog-content {
+  flex: 1;
+}
+
+.blog-title {
+  font-size: 1.8em;
+  margin: 0 0 10px;
+  color: #2a2a2a;
+}
+
+.blog-description {
+  font-size: 1.05em;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.blog-date {
+  font-size: 0.9em;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.read-more-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #3b82f6;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.read-more-btn:hover {
+  background-color: #2563eb;
+}
+
+/* Floating Action Button */
+.fab-container {
+  position: fixed;
+  bottom: 80px;
+  right: 50px;
+  z-index: 1000;
+}
+
+.fab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.fab:hover {
+  width: 160px;
+  border-radius: 30px;
+  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+  transform: translateY(-2px);
+}
+
+.fab::before,
+.fab::after {
+  content: '';
+  position: absolute;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.fab::before {
+  width: 20px;
+  height: 3px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.fab::after {
+  width: 3px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.fab:hover::before,
+.fab:hover::after {
+  opacity: 0;
+}
+
+.fab-text {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: white;
+  position: absolute;
+}
+
+.fab:hover .fab-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fab:hover .fab-icon {
+  transform: rotate(90deg);
+}
+
+@media (max-width: 768px) {
   .blog-card {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 30px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease;
+    flex-direction: column;
   }
-
-  .blog-card:hover {
-    transform: translateY(-5px);
-  }
-
+  
   .blog-image {
-    width: 250px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 6px;
-    flex-shrink: 0;
+    width: 100%;
+    height: 200px;
+  }
+  
+  .fab-container {
+    bottom: 40px;
+    right: 40px;
+  }
+  
+  .fab {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+  
+  .fab:hover {
+    width: 160px;
+  }
+}
+
+/* No blogs styling */
+.no-blogs {
+  text-align: center;
+  color: #666;
+  font-size: 1.2em;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+}
+
+.search-form input[type="search"] {
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  width: 250px;
+  transition: border-color 0.3s ease;
+}
+
+.search-form input[type="search"]:focus {
+  border-color: #007BFF;
+}
+
+.search-form button {
+  padding: 10px 16px;
+  font-size: 16px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-form button:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 500px) {
+  .search-form {
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  .blog-content {
-    flex: 1;
+  .search-form input[type="search"],
+  .search-form button {
+    width: 100%;
   }
+}
 
-  .blog-title {
-    font-size: 1.8em;
-    margin: 0 0 10px;
-    color: #2a2a2a;
-  }
-
-  .blog-description {
-    font-size: 1.05em;
-    color: #555;
-    margin-bottom: 15px;
-  }
-
-  .blog-date {
-    font-size: 0.9em;
-    color: #888;
-    margin-bottom: 10px;
-  }
-
-  .read-more-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #3b82f6;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-  }
-
-  .read-more-btn:hover {
-    background-color: #2563eb;
-  }
 </style>
 
 <div class="blog-list-container">
-
-  <a href="{% url 'create_blog' %}" class="read-more-btn">Create a Blog</a>
-
+  
+  <form class="search-form" method="GET" action="{% url 'search' %}">
+    <input type="search" placeholder="Search..." name="q">
+    <button type="submit">Search</button>
+  </form>
   {% for item in blogs %}
     <div class="blog-card">
       {% if item.image %}
@@ -104,9 +273,16 @@
       </div>
     </div>
   {% empty %}
-    <p>No blogs found.</p>
+    <div class="no-blogs">
+      <p>No blogs found.</p>
+    </div>
   {% endfor %}
+</div>
 
+<div class="fab-container">
+  <a href="{% url 'create_blog' %}" class="fab">
+    <span class="fab-text">+ Create Blog</span>
+  </a>
 </div>
 
 {% endblock %}

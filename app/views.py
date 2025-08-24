@@ -33,6 +33,27 @@ def register_view(request):
         'register.html',
         {'form': form})    
 
+def search_view(request):
+    query = request.GET.get('q')
+    results = None
+
+    if query:
+        if request.user.is_authenticated:
+            username = request.user.username
+        else:
+            username = 'Guest'
+        results = Blog.objects.filter(title=query)
+        blog  = get_object_or_404(Blog,title=query)
+        blog_author = blog.author.username if blog.author else "Guest"
+
+    context = {
+        'query': query,
+        'results': results,
+        'username': blog_author,
+    }    
+
+    return render(request, 'search.html',context)
+        
 
 def login_view(request):
     if request.method == 'POST':

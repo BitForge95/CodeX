@@ -1,13 +1,27 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
 <style>
   body {
     background-color: #fdfcfb;
     font-family: 'Georgia', serif;
     color: #333;
     line-height: 1.8;
+  }
+
+  .Query-Results {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .Query-Results-Heading {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
   }
 
   .blog-wrapper {
@@ -162,20 +176,35 @@
 }
 </style>
 
-<div class="blog-wrapper">
-  <h1 class="blog-title">{{ detailed_blog.title }}</h1>
-  <a class="author-link" href="{% url "profile" username %}">{{username}}</a>
-  <p class="blog-meta">Published on {{ detailed_blog.created_at|date:"F j, Y, g:i a" }}</p>
 
-  {% if detailed_blog.image %}
-    <img class="blog-image" src="{{ detailed_blog.image.url }}" alt="{{ detailed_blog.title }}">
-  {% endif %}
 
-  <div class="blog-description">
-    {{ detailed_blog.description|linebreaks }}
-  </div>
-
-  <a class="back-link" href="{% url 'read_all_blogs' %}">← Back to all blogs</a>
+<div class="Query-Results">
+    <h1 class="Query-Results-Heading">Search Results for "{{ query }}"</h1>
 </div>
+
+
+{% if results %}
+    <ul>
+        {% for item in results %}
+            <div class="blog-wrapper">
+                <h1 class="blog-title">{{ item.title }}</h1>
+                <p class="blog-meta">Published on {{ item.created_at|date:"F j, Y, g:i a" }}</p>
+                <a>{{username}}</a>
+                {% if item.image %}
+                    <img class="blog-image" src="{{ item.image.url }}" alt="{{ item.title }}">
+                {% endif %}
+
+                <div class="blog-description">
+                    {{ item.description|linebreaks }}
+                </div>
+
+                <a class="back-link" href="{% url 'read_all_blogs' %}">← Back to all blogs</a>
+            </div>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No results found.</p>
+{% endif %}
+
 
 {% endblock %}
