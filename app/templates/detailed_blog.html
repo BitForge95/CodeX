@@ -236,6 +236,17 @@
 </style>
 
 <div class="blog-wrapper">
+  <form action="{% url 'like_blog' detailed_blog.title %}" method="post">
+    {% csrf_token %}
+    <button type="submit">
+        {% if request.user in detailed_blog.liked_by.all %}
+            Unlike
+        {% else %}
+            Like
+        {% endif %}
+    </button>
+</form>
+<p>{{ detailed_blog.liked_by.count }} likes</p>
   <h1 class="blog-title">{{ detailed_blog.title }}</h1>
   <a class="author-link" href="{% url 'profile' username %}">{{ username }}</a>
   <p class="blog-meta">Published on {{ detailed_blog.created_at|date:"F j, Y, g:i a" }}</p>

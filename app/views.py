@@ -6,7 +6,8 @@ from .forms import RegisterForm, BlogForm, Comment_form
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
+
 
 
 def profile_view(request, username):
@@ -179,3 +180,38 @@ def comment_view(request, title):
             'username': request.user.username if request.user.is_authenticated else 'Guest'
         }
     )
+
+
+# def likes_view(request, title):
+#     blog = get_object_or_404(Blog, title=title)
+
+#     if request.method == 'POST':
+#         if request.user in blog.liked_by.all():
+#             blog.liked_by.remove(request.user)
+#         else:
+#             blog.liked_by.add(request.user)
+#         return redirect('detailed_blog', title=title)
+    
+#     return redirect('detailed_blog', title=title)
+
+
+
+
+def likes_view(request, title):
+    print("likes_view called")  # Debug Line to check the Like Views
+    blog = get_object_or_404(Blog, title=title)
+    print(f"Blog found: {blog.title}")
+
+    if request.method == 'POST':
+        print(f"User before toggle: {request.user}")
+        if request.user in blog.liked_by.all():
+            blog.liked_by.remove(request.user)
+            print("Like removed")
+        else:
+            blog.liked_by.add(request.user)
+            print("Like added")
+        print("Redirecting now")
+        return redirect('detailed_blog', title=title)
+
+    print("Not a POST request")
+    return redirect('detailed_blog', title=title)

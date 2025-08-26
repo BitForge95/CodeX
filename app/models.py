@@ -17,6 +17,7 @@ class Blog(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    liked_by = models.ManyToManyField(User, related_name='liked_posts', blank=True)
 
     def __str__(self):
         return f'{self.title}-{self.created_at}'
@@ -29,3 +30,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comment by {self.author} on {self.post}'    
+    
