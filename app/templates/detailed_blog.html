@@ -19,13 +19,48 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   }
 
-  .blog-title {
-    font-size: 3em;
-    font-weight: 700;
-    color: #222;
+  .blog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
     margin-bottom: 10px;
     border-bottom: 2px solid #eee;
     padding-bottom: 10px;
+  }
+
+  .blog-title {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #222;
+    margin: 0;
+  }
+
+  .like-form-inline {
+    margin: 0;
+  }
+
+  .like-thumb-button {
+    background-color: #fff0f5;
+    border: 1px solid #f8c1d9;
+    color: #e91e63;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .like-thumb-button:hover {
+    background-color: #e91e63;
+    color: white;
+    box-shadow: 0 6px 16px rgba(233, 30, 99, 0.25);
+    transform: translateY(-2px);
   }
 
   .blog-meta {
@@ -49,6 +84,15 @@
     white-space: pre-line;
   }
 
+  .blog-description blockquote {
+    margin: 20px 0;
+    padding: 15px 20px;
+    background-color: #f9f9f9;
+    border-left: 4px solid #ccc;
+    font-style: italic;
+    color: #666;
+  }
+
   .back-link {
     display: inline-block;
     text-decoration: none;
@@ -64,15 +108,6 @@
     background-color: #3b82f6;
     color: white;
     border-color: #3b82f6;
-  }
-
-  .blog-description blockquote {
-    margin: 20px 0;
-    padding: 15px 20px;
-    background-color: #f9f9f9;
-    border-left: 4px solid #ccc;
-    font-style: italic;
-    color: #666;
   }
 
   .author-link {
@@ -110,144 +145,129 @@
     box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
   }
 
-  textarea {
-    width: 100%;
-    min-height: 80px;
-    font-family: 'Georgia', serif;
-    font-size: 1em;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    resize: vertical;
-    box-sizing: border-box;
-    background-color: #fafafa;
-    color: #333;
-    transition: all 0.3s ease;
-  }
-
-  textarea:focus {
-    outline: none;
-    border-color: #3b82f6;
-    background-color: #fff;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  }
-
+  /* Keep your existing comment styles or add new ones here */
   .comments-section {
-    margin-top: 50px;
-    padding-top: 30px;
-    border-top: 2px solid #eee;
-  }
-
-  .comments-title {
-    font-size: 1.8em;
-    font-weight: 600;
-    color: #222;
-    margin-bottom: 30px;
-  }
-
-  .comment-form {
-    margin-bottom: 40px;
-    padding: 25px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    border: 1px solid #eee;
+    margin-top: 40px;
   }
 
   .comment-form h3 {
-    font-size: 1.3em;
-    color: #333;
-    margin-bottom: 20px;
-    font-weight: 600;
+    margin-bottom: 15px;
   }
 
-  .comment-form button {
+  .comment-form form button {
     background-color: #3b82f6;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1em;
-    font-weight: 500;
+    padding: 10px 18px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 10px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
   }
 
-  .comment-form button:hover {
+  .comment-form form button:hover {
     background-color: #2563eb;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.2);
   }
 
-  .comment-form button:active {
-    transform: translateY(0);
+  .section-divider {
+    margin: 30px 0;
+    border: none;
+    border-top: 1px solid #eee;
   }
+
+  .comments-title {
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+
+  .comment-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.comment-form textarea {
+  resize: vertical;
+  min-height: 100px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border: 1.8px solid #ccc;
+  border-radius: 8px;
+  font-family: 'Georgia', serif;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+.comment-form textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+}
+
+.comment-form form button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-start;
+}
+
+.comment-form form button:hover {
+  background-color: #2563eb;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.5);
+}
+
 
   .comment {
-    background-color: #fafafa;
-    border-radius: 8px;
-    padding: 20px;
     margin-bottom: 20px;
-    border-left: 4px solid #3b82f6;
-    transition: all 0.3s ease;
-  }
-
-  .comment:hover {
-    background-color: #f5f5f5;
-    transform: translateX(2px);
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
   }
 
   .comment-author {
     font-weight: 600;
-    color: #222;
-    font-size: 1.05em;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
   .comment-body {
-    color: #444;
-    font-size: 1em;
-    line-height: 1.6;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
   }
 
   .comment-meta {
     font-size: 0.85em;
     color: #888;
-    font-style: italic;
   }
 
   .no-comments {
-    text-align: center;
-    color: #666;
     font-style: italic;
-    padding: 30px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    border: 1px dashed #ddd;
+    color: #666;
   }
 
-  .section-divider {
-    margin: 40px 0;
-    border: none;
-    height: 1px;
-    background: linear-gradient(to right, transparent, #ddd, transparent);
-  }
 </style>
 
 <div class="blog-wrapper">
-  <form action="{% url 'like_blog' detailed_blog.title %}" method="post">
-    {% csrf_token %}
-    <button type="submit">
+  <div class="blog-header">
+    <h1 class="blog-title">{{ detailed_blog.title }}</h1>
+
+    <form class="like-form-inline" action="{% url 'like_blog' detailed_blog.title %}" method="post">
+      {% csrf_token %}
+      <button type="submit" class="like-thumb-button">
         {% if request.user in detailed_blog.liked_by.all %}
-            Unlike
+          👍 Unlike
         {% else %}
-            Like
+          👍 Like
         {% endif %}
-    </button>
-</form>
-<p>{{ detailed_blog.liked_by.count }} likes</p>
-  <h1 class="blog-title">{{ detailed_blog.title }}</h1>
+        ({{ detailed_blog.liked_by.count }})
+      </button>
+    </form>
+  </div>
+
   <a class="author-link" href="{% url 'profile' username %}">{{ username }}</a>
   <p class="blog-meta">Published on {{ detailed_blog.created_at|date:"F j, Y, g:i a" }}</p>
 
@@ -259,8 +279,7 @@
     {{ detailed_blog.description|linebreaks }}
   </div>
 
-  <a class="back-link" href="{% url 'read_all_blogs' %}">← Back to all blogs</a>
-
+  <!-- Your original comment section here -->
   <div class="comments-section">
     <div class="comment-form">
       <h3>Leave a Comment</h3>
@@ -286,6 +305,8 @@
       </div>
     {% endfor %}
   </div>
+
+  <a class="back-link" href="{% url 'read_all_blogs' %}">← Back to all blogs</a>
 </div>
 
 {% endblock %}
