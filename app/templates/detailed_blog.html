@@ -259,7 +259,7 @@
       {% csrf_token %}
       <button type="submit" class="like-thumb-button">
         {% if request.user in detailed_blog.liked_by.all %}
-          👍 Unlike
+          👎 Dislike
         {% else %}
           👍 Like
         {% endif %}
