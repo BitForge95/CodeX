@@ -6,8 +6,17 @@ from .forms import RegisterForm, BlogForm, Comment_form
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
-from django.http import JsonResponse,HttpResponse
+from django.http import JsonResponse,HttpResponse,HttpResponseForbidden
 
+
+def custom_login_decorater(view_func):
+        def _wrapped_view(request, *args, **kwargs):
+            if request.user.is_authenticated:
+                return view_func(request, *args, **kwargs)
+            else:
+                return redirect('register')
+        return _wrapped_view
+                
 
 
 def profile_view(request, username):
@@ -15,7 +24,7 @@ def profile_view(request, username):
     profile_blogs = Blog.objects.filter(author=user)
     return render(request,'profile.html', {'username' : username, 'profile_blogs': profile_blogs})
 
-@login_required
+@custom_login_decorater
 def Home(request):
     return render(request, 'home.html')
 
@@ -25,7 +34,7 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request,user)
-            return redirect('home')
+            return redirect('')
         
     else:
         form = RegisterForm()
@@ -115,7 +124,7 @@ def read_detailed_blog_view(request, title):    #Updated Detailed_view by implem
             'comments': comments,
             'form': form,
             'username': request.user.username if request.user.is_authenticated else 'Guest',
-            'author': detailed_blog.author
+            'author': detailed_blog.author if detailed_blog.author else 'Anonymus'
         }
     )
 
