@@ -114,7 +114,8 @@ def read_detailed_blog_view(request, title):    #Updated Detailed_view by implem
             'detailed_blog': detailed_blog,
             'comments': comments,
             'form': form,
-            'username': request.user.username if request.user.is_authenticated else 'Guest'
+            'username': request.user.username if request.user.is_authenticated else 'Guest',
+            'author': detailed_blog.author
         }
     )
 

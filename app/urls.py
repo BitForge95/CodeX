@@ -15,7 +15,7 @@ urlpatterns = [
     path('<int:pk>/edit', edit_blog_view, name="edit_blog"),
     path('search/',search_view,name='search'),
     path('post/<str:title>/comments/', comment_view, name='comment_view'),
-     path('post/<str:title>/like/', likes_view, name='like_blog'),
+    path('post/<str:title>/like/', likes_view, name='like_blog'),
 ]
 
 if settings.DEBUG:

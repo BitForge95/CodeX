@@ -268,7 +268,7 @@
     </form>
   </div>
 
-  <a class="author-link" href="{% url 'profile' username %}">{{ username }}</a>
+  <a class="author-link" href="{% url 'profile' author %}">{{ author }}</a>
   <p class="blog-meta">Published on {{ detailed_blog.created_at|date:"F j, Y, g:i a" }}</p>
 
   {% if detailed_blog.image %}
